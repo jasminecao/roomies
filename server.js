@@ -1,13 +1,19 @@
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
+
 const port = process.env.PORT || 9000;
 
-// console.log that your server is up and running
-app.listen(port, () => console.log(`Listening on port ${port}`));
+const app = express();
 
-// create a GET route
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/roomies',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+)
+
+mongoose.set('useFindAndModify', false);
+
 app.get('/express_backend', (req, res) => {
-  console.log('express backend')
   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-  console.log('express backend done')
 });
+
+app.listen(port, () => console.log(`Listening on port ${port}`));
