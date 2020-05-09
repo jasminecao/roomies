@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+// import logo from './logo.svg';
+import Signup from "./components/Signup"
+import Login from "./components/Login"
 import './App.css';
 
 function App() {
@@ -21,7 +29,15 @@ function App() {
   })
   
   return (
-    <div className="App">
+    <>
+    <Router>
+      <Switch>
+        <Route path="/" component={Login} exact />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+      </Switch>
+    </Router>
+    {/* <div className="App">
       <head>
         <title>roomies | login</title>
       </head>
@@ -37,7 +53,8 @@ function App() {
           <p>{state.data}</p>
         </div>
       </body>
-    </div>
+    </div> */}
+    </>
   );
 }
 
