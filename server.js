@@ -1,11 +1,12 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const User = require('./models/user.js');
+var express = require('express');
+var mongoose = require('mongoose');
+var User = require('./models/user.js');
+var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
 
-const port = process.env.PORT || 9000;
+var port = process.env.PORT || 9000;
 
-const app = express();
-app.use(express.urlencoded())
+var app = express();
 
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost:27017/roomies',
@@ -13,6 +14,16 @@ mongoose.connect(
 )
 
 mongoose.set('useFindAndModify', false);
+
+app.use(
+  cookieSession({
+    name: 'local-session',
+    keys: ['spooky'],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  })
+)
+
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/express_backend', (req, res) => {
   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
@@ -47,6 +58,30 @@ app.post('/signup', function(req, res, next) {
       }
   })
   res.redirect('/login')
+})
+
+app.post('/login', function(req, res, next) {
+  console.log(req.body)
+  var username = req.body.username
+  var password = req.body.password
+
+  var u = new User({
+      username: username,
+      password: password,
+  })
+  console.log('user is: ' + u)
+  var name = User.findOne({username: username, password: password}, function(err, result) {
+    if (err) {
+      next(err)
+    }
+    if (result) {
+      console.log('ello')
+      req.session.user = u
+      res.redirect('/home')
+    } else {
+        res.send('rip wrong username/password :/')
+      }
+  })
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
