@@ -38,15 +38,13 @@ input:focus {
 }
 
 .login {
-  padding: calc(1rem + 2.5%) calc(1rem + 25%);
   box-sizing: border-box;
-  margin-top: 25%;
-  margin-left: 25%;
-  width: 50%;
-  height: 40%; 
+  margin-top: 10%;
+  margin-left: 33%;
+  margin-right: 33%;
   box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
-  padding: 24px;
+  padding: 1em;
   background: white;
 }
 
