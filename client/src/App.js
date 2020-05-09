@@ -8,6 +8,7 @@ import {
 // import logo from './logo.svg';
 import Signup from "./components/Signup"
 import Login from "./components/Login"
+import Home from "./components/Home"
 import './App.css';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/" component={Login} exact />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/home" component={Home} />
       </Switch>
     </Router>
     {/* <div className="App">
