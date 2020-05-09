@@ -10,7 +10,7 @@ function Signup() {
       <body>
         <div className="login">
           <h1>Sign Up</h1>
-          <form method="POST">
+          <form action="/signup" method="POST">
             <input type="text" name="name" placeholder="Name" required />
             <input type="text" name="username" placeholder="Username" required />
             <input type="password" name="password" placeholder="Password" required />
