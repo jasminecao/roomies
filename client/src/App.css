@@ -1,38 +1,64 @@
-.App {
+@import url('https://rsms.me/inter/inter.css');
+html, body { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html, body { font-family: 'Inter var', sans-serif; }
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(180deg, #afb2e4 0%, rgb(0, 129, 207) 80%);
+}
+
+h1 {
+  text-align: center;
+  color: #0081CF;
+}
+
+form {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+input[type=text], [type=password] {
+  font-family: 'Inter', sans-serif;
+  width: 75%;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  margin: 0.5em auto;
+  display: inline-block;
+  border: 0px none;
+  outline: none;
+  box-sizing: border-box;
+  border-bottom: 1.1px solid #b4b2b1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+input:focus {
+  border-bottom: 2px solid #0081CF;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.login {
+  padding: calc(1rem + 2.5%) calc(1rem + 25%);
+  box-sizing: border-box;
+  margin-top: 25%;
+  margin-left: 25%;
+  width: 50%;
+  height: 40%; 
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 24px;
+  background: white;
+}
+
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.5em 3em;
+  margin: 2em auto;
+  display: block;
+  border: 0px none;
+  background: #0081CF;
+  border-radius: 3px;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

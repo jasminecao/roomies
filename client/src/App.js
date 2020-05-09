@@ -22,22 +22,21 @@ function App() {
   
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <p>ASDFASDF</p>
-      <p>{state.data}</p>
+      <head>
+        <title>roomies | login</title>
+      </head>
+      <body>
+        <div className="login">
+          <h1>roomies</h1>
+          <form method="POST">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit" className="btn">Login</button>
+          </form>
+          <p>Don't have an account? <a href="/signup">Sign up!</a></p>
+          <p>{state.data}</p>
+        </div>
+      </body>
     </div>
   );
 }
