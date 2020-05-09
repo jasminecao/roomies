@@ -10,7 +10,7 @@ function Login() {
       <body>
         <div className="login">
           <h1>roomies</h1>
-          <form method="POST">
+          <form action="/login" method="POST">
             <input type="text" name="username" placeholder="Username" required />
             <input type="password" name="password" placeholder="Password" required />
             <button type="submit" className="btn">Login</button>
