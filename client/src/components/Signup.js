@@ -1,12 +1,13 @@
 import React from 'react';
 import '../App.css';
 
-function Signup() {
+const Signup = () => {
   return (
-    <div className="App">
+    <>
       <head>
         <title>roomies | signup</title>
       </head>
+    <div className="App">
       <body>
         <div className="login">
           <h1>Sign Up</h1>
@@ -20,6 +21,7 @@ function Signup() {
         </div>
       </body>
     </div>
+    </>
   );
 }
 

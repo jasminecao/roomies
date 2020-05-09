@@ -5,29 +5,28 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import axios from "axios";
 // import logo from './logo.svg';
-import Signup from "./components/Signup"
-import Login from "./components/Login"
-import Home from "./components/Home"
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Home from "./components/Home";
 import './App.css';
 
-function App() {
-  const [state, setState] = useState({ data: null });
+const App = () => {
+  // const [state, setState] = useState({ data: null });
 
-  useEffect(() => {
-    async function callBackendAPI() {
-      console.log("in callbackend")
-      const response = await fetch('/express_backend');
-      console.log(response)
-      const body = await response.json();
-  
-      if (response.status !== 200) {
-        throw Error(body.message) 
-      }
-      return body;
-    }
-    callBackendAPI().then(res => setState({ data: res.express })).catch(err => console.log(err));
-  })
+  // useEffect(() => {
+  //   async function callBackendAPI() {
+  //     const response = await fetch('/');
+  //     const body = await response.json();
+      
+  //     if (response.status !== 200) {
+  //       throw Error(body.message)
+  //     }
+  //     return body;
+  //   }
+  //   callBackendAPI().then(res => setState({ data: res.express })).catch(err => console.log(err));
+  // })
   
   return (
     <>

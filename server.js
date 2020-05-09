@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var User = require('./models/user.js');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
+var cors = require('cors')
 
 var port = process.env.PORT || 9000;
 
@@ -23,14 +24,17 @@ app.use(
   })
 )
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(cors())
 
 app.get('/express_backend', (req, res) => {
   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
 
 app.get('/', function(req, res, next) {
-  res.status(200).send('hiya api working')
+  res.status(200).send('hiya api working');
 })
 
 app.post('/signup', function(req, res, next) {
@@ -60,8 +64,8 @@ app.post('/signup', function(req, res, next) {
   res.redirect('/login')
 })
 
-app.post('/login', function(req, res, next) {
-  console.log(req.body)
+app.post('/api/login', function(req, res, next) {
+  console.log(req)
   var username = req.body.username
   var password = req.body.password
 
@@ -77,10 +81,13 @@ app.post('/login', function(req, res, next) {
     if (result) {
       console.log('ello')
       req.session.user = u
+      res.setHeader('content-type', 'application/json');
+      res.send({ login: true });
       res.redirect('/home')
     } else {
-        res.send('rip wrong username/password :/')
-      }
+      res.send({ login: false });
+      // res.send('incorrect password/username')
+    }
   })
 })
 
