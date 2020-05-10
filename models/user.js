@@ -5,6 +5,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     require: true
   },
+  group: {
+    type: String,
+    require: true
+  },
   username: {
     type: String,
     require: true

@@ -13,6 +13,7 @@ const Signup = () => {
           <h1>Sign Up</h1>
           <form action="/signup" method="POST">
             <input type="text" name="name" placeholder="Name" required />
+            <input type="text" name="group" placeholder="Group Name" required />
             <input type="text" name="username" placeholder="Username" required />
             <input type="password" name="password" placeholder="Password" required />
             <button type="submit" className="btn">Sign Up</button>

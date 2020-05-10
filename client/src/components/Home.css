@@ -1,0 +1,22 @@
+@import url('https://rsms.me/inter/inter.css');
+html, body { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html, body { font-family: 'Inter var', sans-serif; }
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: rgb(204, 222, 233);
+}
+
+.home-header {
+  text-align: left;
+  margin: 0;
+}
+
+.header {
+  padding: 10px 16px;
+  background-color: white;
+}

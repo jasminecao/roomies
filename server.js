@@ -35,14 +35,21 @@ app.get('/', function(req, res, next) {
   res.status(200).send('hiya api working');
 })
 
+app.get('/home', function(req, res, next) {
+  console.log(req.session)
+  res.send(req.session);
+})
+
 app.post('/signup', function(req, res, next) {
   console.log(req.body)
   var name = req.body.name
+  var group = req.body.group
   var username = req.body.username
   var password = req.body.password
 
   var u = new User({
       name: name,
+      group: group,
       username: username,
       password: password,
   })
@@ -78,10 +85,10 @@ app.post('/login', function(req, res, next) {
     }
     if (result) {
       console.log('hello')
-      req.session.user = u
+      req.session.user = result
       res.redirect('/home')
     } else {
-      res.status(401).send({ login: false });
+      res.send('invalid username/password');
     }
   })
 })
