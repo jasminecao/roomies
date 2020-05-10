@@ -10,18 +10,18 @@ const Home = () => {
   useEffect(() => {
     async function callBackendAPI() {
       const response = await fetch('/home');
+      console.log(response)
       const body = await response.json();
-      console.log(body);
       if (body.user === undefined) {
+        console.log('undefined user')
         setLoggedIn(false);
       }
-      
       if (response.status !== 200) {
         throw Error(body.message)
       }
       return body;
     }
-    callBackendAPI().then(res => setUser({ user: res, name: res.user.name })).catch(err => console.log(err));
+    callBackendAPI().then(res => setUser({ username: res.user.username, name: res.user.name, groupName: res.user.group })).catch(err => console.log(err));
   }, []);
 
   function logout() {
@@ -37,9 +37,10 @@ const Home = () => {
       <span className="logout"><a onClick={() => logout()} href="/login">Logout</a></span>
       <h1 className="homeHeader">🏡roomies</h1>
       <div className="homeContainer">
-        {user.user !== undefined && <p className="name">👋Hey {user.name.split(" ")[0]}</p>}
+        {user.name !== undefined && <p className="name">👋Hey {user.name.split(" ")[0]}</p>}
         {!loggedIn && <Redirect to={"/login"}/>}
-        <Grocery user={user.user}/>
+        {console.log("render: "+ user.username)}
+        <Grocery username={user.username} name={user.name} groupName={user.groupName}/>
       </div>
     </body>
     </>

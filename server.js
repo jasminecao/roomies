@@ -41,6 +41,27 @@ app.get('/home', function(req, res, next) {
   res.send(req.session);
 })
 
+app.get('/grocery', function(req, res, next) {
+  var groupName = req.session.user.group
+  console.log("in get: " + groupName)
+  var checkGroup = Group.findOne({name: groupName}, function(err, result) {
+    if (err) {
+      next(err)
+    }
+    if (result) {
+      if (result.groceryList === undefined) {
+        console.log("no list")
+        res.send([])
+      } else {
+        console.log("good list")
+        console.log(result.groceryList)
+        res.send(result.groceryList)
+      }
+    }
+    
+  })
+})
+
 app.post('/signup', function(req, res, next) {
   console.log(req.body)
   var name = req.body.name
@@ -124,19 +145,24 @@ app.post('/login', function(req, res, next) {
 })
 
 app.post('/grocery', function(req, res, next) {
+  req.setTimeout(250000, function() {
+    console.log('request timeout');
+    res.send(408);
+  });
   var groupName =  req.body.groupName; 
   var groceryList = req.body.groceryList;
   console.log("grocery: groupname is " + groupName)
   console.log("grocery list is " + groceryList)
 
-  var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {groceryList: groceryList}}, function (err, res) {
+  var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {groceryList: groceryList}}, function (err, resp) {
     if (err) {
-      console.log(err);
+      console.log(err)
+      next(err)
     } else {
-      console.log(res.groceryList);
+      console.log(resp.groceryList);
     }
   });
-
+  res.status(200).end()
 })
 
 app.get('/logout', function(req, res) {

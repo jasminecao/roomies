@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './Grocery.css';
 
 const Grocery = props => {
-  const {user} = props
-  console.log("user from props: " + user)
+  const {username, name, groupName} = props
+  const [get, setGet] = useState(false)
 
   const [items, setItems] = useState([
     {
@@ -20,24 +20,68 @@ const Grocery = props => {
     }
   ]);
 
-  var postInfo = {
-    user: user,
-    groceryList: items,
-  }
+  useEffect(() => {
+    if (groupName !== undefined) {
+      async function callBackendAPI() {
+        const response = await fetch('/grocery');
+        const body = await response.json();
+        return body;
+      }
+      callBackendAPI().then(res => {if (res.length !== 0) setItems(res)}).catch(err => console.log(err));
+      setGet(true)
+    }
+  }, [groupName])
+  
+  useEffect(() => {
+    sendPost();
+  }, [items])
 
-  async function callBackendAPI() {
-    const requestOptions = {
-      method: 'POST', 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(postInfo),
+  // useEffect(() => {
+  //   if (groupName !== undefined) {
+  //     var postInfo = {
+  //       groupName: groupName,
+  //       groceryList: items,
+  //     }
+  
+  //     async function callBackendAPI() {
+  //       const requestOptions = {
+  //         method: 'POST', 
+  //         headers: { 'Content-Type': 'application/json' },
+  //         body: JSON.stringify(postInfo),
+  //       }
+  //       const response = await fetch('/grocery', requestOptions);
+  //       console.log(response)
+  //       // const body = await response.json();
+  //       // console.log(body);
+  //       return response;
+  //       }
+  //     callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  
+  //   }
+  // });
+
+  function sendPost() {
+    console.log('sending post')
+    if (groupName !== undefined && get) {
+      var postInfo = {
+        groupName: groupName,
+        groceryList: items,
+      }
+  
+      async function callBackendAPI() {
+        const requestOptions = {
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(postInfo),
+        }
+        const response = await fetch('/grocery', requestOptions);
+        console.log(response)
+        // const body = await response.json();
+        // console.log(body);
+        return response;
+        }
+      callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  
     }
-    const response = await fetch('/grocery', requestOptions);
-    console.log(response)
-    // const body = await response.json();
-    // console.log(body);
-    return response;
-    }
-  callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));
+  }
 
   function handleKeyDown(e, i) {
     if (e.key === 'Enter') {
@@ -82,19 +126,13 @@ const Grocery = props => {
     setItems(tempItems);
   }
 
-  function addItem() {
-    const copyArray = items.slice();
-    copyArray.push("");
-    setItems(copyArray);
-  }
-
   return (
     <div className="box left">
       <h2>Grocery List</h2>
       <form className="todo-list">
         <ul>
           {items.map((item, i) => (
-            <div className={`todo ${item.isCompleted && 'todo-is-completed'}`}>
+            <div key={i} className={`todo ${item.isCompleted && 'todo-is-completed'}`}>
               <div className="checkbox" onClick={() => toggleItemCompleteAtIndex(i)}>
                 {item.isCompleted && (
                   <span style={{color: "white"}}>✔</span>
@@ -102,7 +140,8 @@ const Grocery = props => {
               </div>
               <input 
                 className={`itemInput ${item.isCompleted && 'item-is-completed'}`}
-                type="text" 
+                type="text"
+                key={i}
                 value={item.name} 
                 onKeyDown={e => handleKeyDown(e, i)} 
                 onChange={e => updateItemAtIndex(e, i)}/>
