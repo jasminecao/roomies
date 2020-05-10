@@ -8,7 +8,8 @@ html, body { font-family: 'Inter', sans-serif; }
   height: 100%;
   width: 100%;
   position: absolute;
-  background: linear-gradient(180deg, #afb2e4 0%, rgb(0, 129, 207) 80%);
+  /* background: linear-gradient(180deg, #afb2e4 0%, rgb(0, 129, 207) 80%); */
+  background: linear-gradient(180deg, #c4c6e9 0%, rgb(170, 207, 229) 80%);
 }
 
 h1 {
