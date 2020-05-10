@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Grocery.css';
 
-const Grocery = () => {
+const Grocery = props => {
+  const {user} = props
+  console.log("user from props: " + user)
+
   const [items, setItems] = useState([
     {
       name: 'milk',
@@ -16,6 +19,25 @@ const Grocery = () => {
       isCompleted: false,
     }
   ]);
+
+  var postInfo = {
+    user: user,
+    groceryList: items,
+  }
+
+  async function callBackendAPI() {
+    const requestOptions = {
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(postInfo),
+    }
+    const response = await fetch('/grocery', requestOptions);
+    console.log(response)
+    // const body = await response.json();
+    // console.log(body);
+    return response;
+    }
+  callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));
 
   function handleKeyDown(e, i) {
     if (e.key === 'Enter') {
