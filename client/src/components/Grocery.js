@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './Grocery.css';
-import ListItem from './ListItem';
 
 const Grocery = () => {
   const [items, setItems] = useState([
     {
-      name: 'test',
+      name: 'milk',
+      isCompleted: false,
+    },
+    {
+      name: 'eggs',
+      isCompleted: false,
+    },
+    {
+      name: 'coffee',
       isCompleted: false,
     }
   ]);
