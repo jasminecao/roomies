@@ -36,7 +36,7 @@ app.get('/', function(req, res, next) {
 })
 
 app.get('/home', function(req, res, next) {
-  console.log(req.session)
+  console.log('get home user ' + req.session.user)
   res.send(req.session);
 })
 
@@ -70,7 +70,6 @@ app.post('/signup', function(req, res, next) {
 })
 
 app.post('/login', function(req, res, next) {
-  console.log(req.body)
   var username = req.body.username
   var password = req.body.password
 
@@ -84,8 +83,8 @@ app.post('/login', function(req, res, next) {
       next(err)
     }
     if (result) {
-      console.log('hello')
       req.session.user = result
+      console.log('logged in ' + req.session.user)
       res.redirect('/home')
     } else {
       res.send('invalid username/password');
@@ -94,8 +93,8 @@ app.post('/login', function(req, res, next) {
 })
 
 app.get('/logout', function(req, res) {
-  req.session = null
-  console.log(req.session)
+  req.session = null;
+  console.log('end session ' + req.session)
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
