@@ -18,16 +18,24 @@ const Home = () => {
     callBackendAPI().then(res => setUser({ name: res.user.name })).catch(err => console.log(err));
   }, [])
 
+  function logout() {
+    const response = fetch('/logout');
+  }
+
   return (
     <>
     <head>
       <title>roomies</title>
     </head>
-    <div className="header">
-      <h1 className="home-header">🏡roomies</h1>
-    </div>
+    {/* <div className='header'>
+      <h1>🏡roomies</h1>
+      <span className="logout"><a onclick={logout()} href="/login">Logout</a></span>
+    </div> */}
+      
     <body>
-      <p>Hi {user.name}</p>
+      <span className="logout"><a onclick={logout()} href="/login">Logout</a></span>
+      <h1 className="homeHeader">🏡roomies</h1>
+      <p className="name">Hi {user.name}</p>
     </body>
     </>
   );

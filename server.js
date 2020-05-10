@@ -93,4 +93,9 @@ app.post('/login', function(req, res, next) {
   })
 })
 
+app.get('/logout', function(req, res) {
+  req.session = null
+  console.log(req.session)
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

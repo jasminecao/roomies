@@ -10,7 +10,7 @@ const Signup = () => {
     <div className="App">
       <body>
         <div className="login">
-          <h1>Sign Up</h1>
+          <h1>sign up</h1>
           <form action="/signup" method="POST">
             <input type="text" name="name" placeholder="Name" required />
             <input type="text" name="group" placeholder="Group Name" required />
