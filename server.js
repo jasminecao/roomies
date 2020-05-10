@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var User = require('./models/user.js');
+var Group = require('./models/group.js');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var cors = require('cors')
@@ -43,13 +44,13 @@ app.get('/home', function(req, res, next) {
 app.post('/signup', function(req, res, next) {
   console.log(req.body)
   var name = req.body.name
-  var group = req.body.group
+  var groupName = req.body.group
   var username = req.body.username
   var password = req.body.password
 
   var u = new User({
       name: name,
-      group: group,
+      group: groupName,
       username: username,
       password: password,
   })
@@ -66,6 +67,36 @@ app.post('/signup', function(req, res, next) {
           })
       }
   })
+
+  var checkGroup = Group.findOne({name: groupName}, function(err, result) {
+    if (err) {
+      next(err)
+    }
+    if (!result) {
+      var g = new Group({
+        name: groupName,
+        users: [u],
+      })
+      g.save(function(err) {
+        if (err) {
+          next(err)
+        }
+      })
+    } else {
+      Group.findOneAndUpdate({name: groupName}, {$push: {users: u}}, function (err, res) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res);
+        }
+      });
+      // db.groupschema.update(
+      //   {name: groupName},
+      //   {$push: {users: u}}
+      // )
+    }
+  })
+
   res.redirect('/login')
 })
 
