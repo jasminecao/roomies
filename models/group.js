@@ -9,7 +9,7 @@ const GroupSchema = mongoose.Schema({
     type: Object,
     require: true
   },
-  grocerylist: {
+  groceryList: {
     type: Object,
     require: false
   }
