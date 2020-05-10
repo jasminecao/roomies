@@ -39,7 +39,7 @@ const Home = () => {
       <div className="homeContainer">
         {user.user !== undefined && <p className="name">👋Hey {user.name.split(" ")[0]}</p>}
         {!loggedIn && <Redirect to={"/login"}/>}
-        <Grocery />
+        <Grocery user={user.user}/>
       </div>
     </body>
     </>
