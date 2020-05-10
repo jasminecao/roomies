@@ -123,6 +123,22 @@ app.post('/login', function(req, res, next) {
   })
 })
 
+app.post('/grocery', function(req, res, next) {
+  var groupName =  req.body.groupName; 
+  var groceryList = req.body.groceryList;
+  console.log("grocery: groupname is " + groupName)
+  console.log("grocery list is " + groceryList)
+
+  var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {groceryList: groceryList}}, function (err, res) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res.groceryList);
+    }
+  });
+
+})
+
 app.get('/logout', function(req, res) {
   req.session = null;
   console.log('end session ' + req.session)
