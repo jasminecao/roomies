@@ -1,0 +1,64 @@
+.addButton {
+  display: flex;
+  border: none;
+  background: none;
+  color: rgba(55, 53, 47, 0.6);
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.todo-is-completed .checkbox {
+  color: #000;
+  background: #fff;
+}
+
+.todo-is-completed input {
+  text-decoration: line-through;
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color .2s ease-in-out;
+  border: 1px solid #000;
+}
+
+.checkbox:hover {
+  background: rgba(55, 53, 47, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.checkbox-checked {
+  color: #000;
+  background: #fff;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  line-height: 2rem;
+  margin: 0px;
+  width: 100%;
+}
+
+.itemInput {
+  border: none;
+  outline: none;
+  width: 100%;
+}

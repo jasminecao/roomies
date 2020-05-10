@@ -1,8 +1,8 @@
-@import url('https://rsms.me/inter/inter.css');
+/* @import url('https://rsms.me/inter/inter.css');
 html, body { font-family: 'Inter', sans-serif; }
 @supports (font-variation-settings: normal) {
   html, body { font-family: 'Inter var', sans-serif; }
-}
+} */
 
 body {
   height: 100%;
@@ -27,6 +27,21 @@ body {
   margin-right: 10px;
 }
 
-.name {
+.homeContainer {
   margin-left: 10%;
+  margin-right: 10%;
+}
+
+h2 {
+  font-size: 18px;
+  color: #0081CF;
+}
+
+.box {
+  box-sizing: border-box;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15);
+  width: 40%;
+  border-radius: 4px;
+  padding: 1em;
+  background: white;
 }

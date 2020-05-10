@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-  Link
-} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import Grocery from './Grocery';
 
 const Home = () => {
   const [user, setUser] = useState({})
@@ -41,8 +36,11 @@ const Home = () => {
     <body>
       <span className="logout"><a onClick={() => logout()} href="/login">Logout</a></span>
       <h1 className="homeHeader">🏡roomies</h1>
-      {user.user !== undefined && <p className="name">Hey {user.name}</p>}
-      {!loggedIn && <Redirect to={"/login"}/>}
+      <div className="homeContainer">
+        {user.user !== undefined && <p className="name">👋Hey {user.name.split(" ")[0]}</p>}
+        {!loggedIn && <Redirect to={"/login"}/>}
+        <Grocery />
+      </div>
     </body>
     </>
   );
