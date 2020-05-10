@@ -13,7 +13,7 @@ const Login = () => {
       <div className="App">
         <div className="login">
           <h1>roomies</h1>
-          <form action="/login" method="POST">
+          <form action="/login" method="POST" className="loginInput">
             <input type="text" name="username" placeholder="Username" required />
             <input type="password" name="password" placeholder="Password" required />
             <button type="submit" className="btn">Login</button>
