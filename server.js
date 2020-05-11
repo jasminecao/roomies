@@ -30,12 +30,12 @@ app.use(bodyParser.json())
 
 app.use('/', express.static(path.join(__dirname, '/client/build')));
 
-app.get('/', function(req, res, next) {
-  res.status(200).send('api working');
-})
+// app.get('/', function(req, res, next) {
+//   res.status(200).send('api working');
+// })
 
 //sends user currently logged in
-app.get('/home', function(req, res, next) {
+app.get('/homeapi', function(req, res, next) {
   res.send(req.session);
 })
 
@@ -223,7 +223,7 @@ app.post('/message', function(req, res, next) {
   res.status(200).end()
 })
 
-app.get('/logout', function(req, res) {
+app.get('/logoutapi', function(req, res) {
   req.session = null;
   console.log('end session ' + req.session)
 })

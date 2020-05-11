@@ -11,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     async function callBackendAPI() {
-      const response = await fetch('/home');
+      const response = await fetch('/homeapi');
       const body = await response.json();
       if (body.user === undefined) {
         setLoggedIn(false);
@@ -25,7 +25,7 @@ const Home = () => {
   }, []);
 
   function logout() {
-    const response = fetch('/logout');
+    const response = fetch('/logoutapi');
   }
 
   return (
