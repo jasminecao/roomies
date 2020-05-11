@@ -92,3 +92,57 @@ td {
   margin-top: 20px;
   float: left;
 }
+
+.addChoreButton {
+  float: left;
+  border: none;
+  background: none;
+  color: rgba(55, 53, 47, 0.6);
+  font-family: 'Inter', sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 0px;
+}
+
+.choreInput {
+  float: left;
+}
+
+.choreInput input{
+  float: left;
+  font-family: 'Inter', sans-serif;
+  width: 100px;
+  border: 1.1px solid #b4b2b1;
+  border-radius: 0.3em;
+  padding-left: 0.3em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  outline: none;
+  box-sizing: border-box;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.choreInput input:focus {
+  border: 2px solid #0081CF;
+}
+
+select {
+  margin-top: 5px;
+  margin-right: 10px;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-left: 0.3em;
+  font-family: 'Inter', sans-serif;
+  border: 1.1px solid #b4b2b1;
+  border-radius: 0.3em;
+}
+
+.submitChore {
+  font-family: 'Inter', sans-serif;
+  padding: 0.4em 1em;
+  border: 0px none;
+  background: rgb(67, 167, 230);
+  border-radius: 3px;
+  color: white;
+}

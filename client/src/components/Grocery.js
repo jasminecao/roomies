@@ -150,7 +150,7 @@ const Grocery = props => {
           }
         </ul>
       </form>
-      <button className="addButton" onClick={e => addItemAtIndex(e, items.length - 1)}>+ add new item</button>
+      <button className="addButton" onClick={e => addItemAtIndex(e, items.length - 1)}>+ add new item🥑</button>
     </div>
   )
 }
