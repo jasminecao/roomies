@@ -37,7 +37,6 @@ const Grocery = props => {
   }, [items])
 
   function sendPost() {
-    console.log('sending post')
     if (groupName !== undefined && get) {
       var postInfo = {
         groupName: groupName,
@@ -51,9 +50,6 @@ const Grocery = props => {
           body: JSON.stringify(postInfo),
         }
         const response = await fetch('/grocery', requestOptions);
-        console.log(response)
-        // const body = await response.json();
-        // console.log(body);
         return response;
         }
       callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  

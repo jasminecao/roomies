@@ -12,10 +12,8 @@ const Home = () => {
   useEffect(() => {
     async function callBackendAPI() {
       const response = await fetch('/home');
-      console.log(response)
       const body = await response.json();
       if (body.user === undefined) {
-        console.log('undefined user')
         setLoggedIn(false);
       }
       if (response.status !== 200) {
@@ -41,7 +39,6 @@ const Home = () => {
       <div className="homeContainer">
         {user.name !== undefined && <p className="name">👋Hey {user.name.split(" ")[0]}</p>}
         {!loggedIn && <Redirect to={"/login"}/>}
-        {console.log("render: "+ user.username)}
         <Grocery username={user.username} name={user.name} groupName={user.groupName}/>
         <ChoreSchedule username={user.username} name={user.name} groupName={user.groupName}/>
         <MessageBoard username={user.username} name={user.name} groupName={user.groupName}/>

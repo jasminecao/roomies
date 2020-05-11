@@ -40,9 +40,6 @@ const MessageBoard = props => {
           body: JSON.stringify(postInfo),
         }
         const response = await fetch('/message', requestOptions);
-        console.log(response)
-        // const body = await response.json();
-        // console.log(body);
         return response;
         }
       callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  

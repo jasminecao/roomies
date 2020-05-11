@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
 import _ from 'lodash';
 
 const ChoreSchedule = props => {
@@ -32,7 +31,6 @@ const ChoreSchedule = props => {
   }, [choreList])
 
   function sendPost() {
-    console.log('sending post')
     if (groupName !== undefined) {
       var postInfo = {
         groupName: groupName,
@@ -46,7 +44,6 @@ const ChoreSchedule = props => {
           body: JSON.stringify(postInfo),
         }
         const response = await fetch('/chore', requestOptions);
-        console.log(response)
         return response;
         }
       callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  
