@@ -42,7 +42,7 @@ const Home = () => {
         {!loggedIn && <Redirect to={"/login"}/>}
         {console.log("render: "+ user.username)}
         <Grocery username={user.username} name={user.name} groupName={user.groupName}/>
-        <ChoreSchedule />
+        <ChoreSchedule username={user.username} name={user.name} groupName={user.groupName}/>
       </div>
     </body>
     </>

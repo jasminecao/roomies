@@ -2,13 +2,27 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-const ChoreSchedule = () => {
+const ChoreSchedule = props => {
+  const {username, name, groupName} = props;
+
   const [addChore, setAddChore] = useState(false);
   const [choreName, setChoreName] = useState('');
   const [choreUser, setChoreUser] = useState('assign chore');
   const [choreDay, setChoreDay] = useState('day');
   const [choreList, setChoreList] = useState([]);
-  const [numRows, setNumRows] = useState(2);
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    if (groupName !== undefined) {
+      async function callBackendAPI() {
+        const response = await fetch('/chore');
+        const body = await response.json();
+        return body;
+      }
+      callBackendAPI().then(res => {setUsers(res.groupMembers); if (res.choreList !== undefined) setChoreList(res.choreList)})
+        .catch(err => console.log(err));
+    }
+  }, [groupName])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -113,8 +127,9 @@ const ChoreSchedule = () => {
               <input type="text" name="choreName" placeholder="chore name" value={choreName} onChange={e => setChoreName(e.target.value)} required/>
               <select id="choreUser" value={choreUser} onChange={e => setChoreUser(e.target.value)} required>
                 <option value="assign chore" disabled>assign chore</option>
-                <option value="user1">user1</option>
-                <option value="user2">user2</option>
+                {users.map((entry, i) => (
+                  <option key={i} value={entry.name.split(" ")[0]}>{entry.name.split(" ")[0]}</option>
+                ))}
               </select>
               <select id="choreDay" value={choreDay} onChange={e => setChoreDay(e.target.value)} required>
                 <option value="day" disabled>day</option>

@@ -58,7 +58,24 @@ app.get('/grocery', function(req, res, next) {
         res.send(result.groceryList)
       }
     }
-    
+  })
+})
+
+app.get('/chore', function(req, res, next) {
+  var groupName = req.session.user.group
+  var checkGroup = Group.findOne({name: groupName}, function(err, result) {
+    if (err) {
+      next(err)
+    }
+    if (result) {
+      if (result.choreList === undefined) {
+        res.send({groupMembers: result.users})
+      } else {
+        console.log("good list")
+        console.log(result.choreList)
+        res.send({choreList: result.choreList, groupMembers: result.users})
+      }
+    }
   })
 })
 
