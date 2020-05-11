@@ -5,10 +5,49 @@ const MessageBoard = props => {
 
   const[messages, setMessages] = useState([
     {
-      username: "Example",
+      username: name,
       message: "",
     }
   ])
+
+  useEffect(() => {
+    if (groupName !== undefined) {
+      async function callBackendAPI() {
+        const response = await fetch('/message');
+        const body = await response.json();
+        return body;
+      }
+      callBackendAPI().then(res => {if (res.length !== 0) setMessages(res)}).catch(err => console.log(err));
+    }
+  }, [groupName])
+
+  useEffect(() => {
+    sendPost();
+  }, [messages])
+
+  function sendPost() {
+    console.log('sending post')
+    if (groupName !== undefined) {
+      var postInfo = {
+        groupName: groupName,
+        messageList: messages,
+      }
+  
+      async function callBackendAPI() {
+        const requestOptions = {
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(postInfo),
+        }
+        const response = await fetch('/message', requestOptions);
+        console.log(response)
+        // const body = await response.json();
+        // console.log(body);
+        return response;
+        }
+      callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  
+    }
+  }
 
   function handleKeyDown(e, i) {
     if (e.key === 'Enter') {
@@ -24,7 +63,7 @@ const MessageBoard = props => {
   function addItemAtIndex(e, i) {
     const newMessages = [...messages];
     newMessages.splice(i + 1, 0, {
-      username: 'uhh', //FIX
+      username: name,
       message: "",
     });
     setMessages(newMessages);
@@ -55,7 +94,7 @@ const MessageBoard = props => {
               <span className="bulb">
                 💡
               </span>
-              <div className="messageUserText">{name}</div>
+              <div className="messageUserText">{item.username}</div>
               <textarea 
                 className={"messageText"}
                 type="text"

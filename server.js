@@ -90,6 +90,25 @@ app.get('/chore', function(req, res, next) {
   })
 })
 
+app.get('/message', function(req, res, next) {
+  var groupName = req.session.user.group
+  var checkGroup = Group.findOne({name: groupName}, function(err, result) {
+    if (err) {
+      next(err)
+    }
+    if (result) {
+      if (result.messageList === undefined) {
+        console.log("no msg list")
+        res.send([])
+      } else {
+        console.log("good msg list")
+        console.log(result.messageList)
+        res.send(result.messageList)
+      }
+    }
+  })
+})
+
 app.post('/signup', function(req, res, next) {
   console.log(req.body)
   var name = req.body.name
@@ -208,6 +227,26 @@ app.post('/chore', function(req, res, next) {
       next(err)
     } else {
       console.log(resp.choreList);
+    }
+  });
+  res.status(200).end()
+})
+
+app.post('/message', function(req, res, next) {
+  req.setTimeout(250000, function() {
+    console.log('request timeout');
+    res.send(408);
+  });
+  var groupName =  req.body.groupName; 
+  var messageList = req.body.messageList;
+  console.log("msg list is " + messageList)
+
+  var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {messageList: messageList}}, function (err, resp) {
+    if (err) {
+      console.log(err)
+      next(err)
+    } else {
+      console.log(resp.messageList);
     }
   });
   res.status(200).end()
