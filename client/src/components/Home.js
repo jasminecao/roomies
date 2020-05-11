@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Home.css';
 import { Redirect } from "react-router-dom";
 import Grocery from './Grocery';
+import ChoreSchedule from './ChoreSchedule';
 
 const Home = () => {
   const [user, setUser] = useState({})
@@ -41,6 +42,7 @@ const Home = () => {
         {!loggedIn && <Redirect to={"/login"}/>}
         {console.log("render: "+ user.username)}
         <Grocery username={user.username} name={user.name} groupName={user.groupName}/>
+        <ChoreSchedule />
       </div>
     </body>
     </>

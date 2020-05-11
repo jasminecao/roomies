@@ -28,8 +28,8 @@ body {
 }
 
 .homeContainer {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 h2 {
@@ -37,11 +37,58 @@ h2 {
   color: #0081CF;
 }
 
-.box {
+.boxLeft {
   box-sizing: border-box;
+  float: left;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15);
-  width: 40%;
+  width: 25%;
   border-radius: 4px;
   padding: 1em;
   background: white;
+  margin-bottom: 2%;
+  margin-right: 2%;
+}
+
+.boxRight {
+  float: right;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15);
+  width: 73%;
+  border-radius: 4px;
+  padding: 1em;
+  background: white;
+  margin-bottom: 16px;
+}
+
+table {
+  width: 100%;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  table-layout: fixed;
+}
+
+thead {
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+tr {
+  height: 30px;
+}
+
+th {
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+}
+
+td {
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.choreForm {
+  margin-top: 20px;
+  float: left;
 }

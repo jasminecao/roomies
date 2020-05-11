@@ -127,7 +127,7 @@ const Grocery = props => {
   }
 
   return (
-    <div className="box left">
+    <div className="boxLeft">
       <h2>Grocery List</h2>
       <form className="todo-list">
         <ul>
