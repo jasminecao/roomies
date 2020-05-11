@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var User = require('./models/user.js');
 var Group = require('./models/group.js');
 var bodyParser = require('body-parser');
+var path = require("path")
 var cookieSession = require('cookie-session');
 
 var port = process.env.PORT || 9000;
@@ -27,8 +28,10 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.use('/', express.static(path.join(__dirname, '/client/build')));
+
 app.get('/', function(req, res, next) {
-  res.status(200).send('hiya api working');
+  res.status(200).send('api working');
 })
 
 //sends user currently logged in
@@ -224,5 +227,9 @@ app.get('/logout', function(req, res) {
   req.session = null;
   console.log('end session ' + req.session)
 })
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
