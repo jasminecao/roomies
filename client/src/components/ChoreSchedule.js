@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import styled from 'styled-components';
 import _ from 'lodash';
 
 const ChoreSchedule = () => {
@@ -53,25 +54,23 @@ const ChoreSchedule = () => {
         if (table.rows.length > 2) {
           const rowlength = table.rows.length
           for (let j = rowlength - 2; j >= 1; j --) {
-            console.log("deleting" + j)
             table.deleteRow(j);
           }
         }
       }
       const length = table.rows.length;
       for (let j = 1; j < length; j++) {
-        console.log("in for loop")
         let cell =  table.rows[j].cells[convertDay(entry.choreDay)]
         if (j === table.rows.length - 1) {
           let newRow = table.insertRow();
           for (let k = 0; k < 7; k++) {
             newRow.insertCell(k);
           }
-          console.log("inserted new row")
         }
         if (cell.innerHTML === '') {
-          cell.innerHTML = entry.choreName;
-          console.log("about to break")
+          let tag = `<div class="chorestyle">` + `<div class="userText">` + entry.choreUser + `</div>` + `<br/>` +
+                    `<div class="choreText">` + entry.choreName + `</div>` + `</div>`
+          cell.innerHTML = tag;
           return;
         }
       }

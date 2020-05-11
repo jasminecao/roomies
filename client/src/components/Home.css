@@ -146,3 +146,27 @@ select {
   border-radius: 3px;
   color: white;
 }
+
+.chorestyle {
+  border-radius: 0.5em;
+  display: block;
+  background-color: #e3f2f8;
+  line-height: 1rem;
+  padding-left: .5em;
+  padding-right: .5em;
+  margin-top: .35rem;
+  margin-right: .35rem;
+  word-wrap: break-all;
+}
+
+.userText {
+  display: block;
+  float: left;
+  font-size: 10px;
+  color: rgb(139, 142, 145);
+}
+
+.choreText {
+  display: block;
+  font-size: 12px;
+}
