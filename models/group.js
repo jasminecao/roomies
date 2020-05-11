@@ -16,6 +16,10 @@ const GroupSchema = mongoose.Schema({
   choreList: {
     type: Object,
     require: false
+  },
+  messageList: {
+    type: Object,
+    require: false
   }
 });
 
