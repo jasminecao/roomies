@@ -1,57 +1,27 @@
 import React, {useEffect, useState} from 'react';
+import _ from 'lodash';
 
 const ChoreSchedule = () => {
   const [addChore, setAddChore] = useState(false);
   const [choreName, setChoreName] = useState('');
   const [choreUser, setChoreUser] = useState('assign chore');
   const [choreDay, setChoreDay] = useState('day');
-  const [choreList, setChoreList] = useState({sunday:[], monday:[], tuesday:[], wednesday:[], thursday:[], friday:[], saturday:[]});
+  const [choreList, setChoreList] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (choreDay !== 'day' && choreList !== 'assign chore') {
-      switch(choreDay) {
-        case 'sunday':
-          addChoreToList(0);
-          break;
-        case 'monday':
-          addChoreToList(1);
-          break;
-        case 'tuesday':
-          addChoreToList(2);
-          break;
-        case 'wednesday':
-          addChoreToList(3);
-          break;
-        case 'thursday':
-          addChoreToList(4);
-          break;
-        case 'friday':
-          addChoreToList(5);
-          break;
-        case 'saturday':
-          addChoreToList(6);
-          break;
-        default: 
-          break;
-      }
-      console.log(choreList);
+    if (choreDay !== 'day' && choreUser !== 'assign chore') {
+      const newChoreList = [...choreList];
+      newChoreList.splice(newChoreList.length + 1, 0, {
+        choreName: choreName,
+        choreUser: choreUser,
+        choreDay: choreDay,
+      });
+      setChoreList(newChoreList);
       setChoreName('');
       setChoreUser('assign chore');
       setChoreDay('day');
     }
-  }
-
-  function addChoreToList(i) {
-    console.log(choreList.onChange);
-    const newChoreList = choreList.i.slice();
-    newChoreList.i.push({
-      choreName: choreName,
-      choreUser: choreUser,
-      choreDay: choreDay,
-    })
-    setChoreList(newChoreList);
-    console.log(choreList)
   }
 
   return (
@@ -70,10 +40,10 @@ const ChoreSchedule = () => {
             <th>Sat</th>
           </tr>
           <tr>
-            {/* {choreList.map((entry, i) => (
-              <td><div>{entry.choreName}</div></td>
+            {choreList.map((entry, i) => (
+              <td key={i}><div>{entry.choreName}</div></td>
               ))
-            } */}
+            }
           </tr>
         </table>
         <form className="choreForm">
