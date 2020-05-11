@@ -182,6 +182,26 @@ app.post('/grocery', function(req, res, next) {
   res.status(200).end()
 })
 
+app.post('/chore', function(req, res, next) {
+  req.setTimeout(250000, function() {
+    console.log('request timeout');
+    res.send(408);
+  });
+  var groupName =  req.body.groupName; 
+  var choreList = req.body.choreList;
+  console.log("chore list is " + choreList)
+
+  var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {choreList: choreList}}, function (err, resp) {
+    if (err) {
+      console.log(err)
+      next(err)
+    } else {
+      console.log(resp.choreList);
+    }
+  });
+  res.status(200).end()
+})
+
 app.get('/logout', function(req, res) {
   req.session = null;
   console.log('end session ' + req.session)

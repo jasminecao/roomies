@@ -22,7 +22,35 @@ const ChoreSchedule = props => {
       callBackendAPI().then(res => {setUsers(res.groupMembers); if (res.choreList !== undefined) setChoreList(res.choreList)})
         .catch(err => console.log(err));
     }
-  }, [groupName])
+  }, [groupName]);
+
+  useEffect(() => {
+    sendPost();
+  }, [choreList])
+
+  function sendPost() {
+    console.log('sending post')
+    if (groupName !== undefined) {
+      var postInfo = {
+        groupName: groupName,
+        choreList: choreList,
+      }
+  
+      async function callBackendAPI() {
+        const requestOptions = {
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(postInfo),
+        }
+        const response = await fetch('/chore', requestOptions);
+        console.log(response)
+        // const body = await response.json();
+        // console.log(body);
+        return response;
+        }
+      callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
