@@ -4,7 +4,6 @@ var User = require('./models/user.js');
 var Group = require('./models/group.js');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
-var cors = require('cors')
 
 var port = process.env.PORT || 9000;
 
@@ -28,39 +27,33 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.get('/express_backend', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
-
 app.get('/', function(req, res, next) {
   res.status(200).send('hiya api working');
 })
 
+//sends user currently logged in
 app.get('/home', function(req, res, next) {
-  console.log('get home user ' + req.session.user)
   res.send(req.session);
 })
 
+//sends group's grocery list (if it exists)
 app.get('/grocery', function(req, res, next) {
   var groupName = req.session.user.group
-  console.log("in get: " + groupName)
   var checkGroup = Group.findOne({name: groupName}, function(err, result) {
     if (err) {
       next(err)
     }
     if (result) {
       if (result.groceryList === undefined) {
-        console.log("no list")
         res.send([])
       } else {
-        console.log("good list")
-        console.log(result.groceryList)
         res.send(result.groceryList)
       }
     }
   })
 })
 
+//sends group's prev chore list and username list
 app.get('/chore', function(req, res, next) {
   var groupName = req.session.user.group
   var checkGroup = Group.findOne({name: groupName}, function(err, result) {
@@ -71,25 +64,21 @@ app.get('/chore', function(req, res, next) {
       if (result.choreList === undefined) {
         const usernameArray = [];
         for (let i = 0; i < result.users.length; i++) {
-          console.log(result.users[i].name);
-          usernameArray.push(result.users[i].name)
+          usernameArray.push(result.users[i].name) //sends array with only names
         }
         res.send({groupMembers: usernameArray})
       } else {
-        console.log("good list")
-        console.log(result.choreList)
         const usernameArray = [];
         for (let i = 0; i < result.users.length; i++) {
-          console.log(result.users[i].name);
           usernameArray.push(result.users[i].name)
         }
-        console.log(usernameArray)
         res.send({choreList: result.choreList, groupMembers: usernameArray})
       }
     }
   })
 })
 
+//sends group's message list
 app.get('/message', function(req, res, next) {
   var groupName = req.session.user.group
   var checkGroup = Group.findOne({name: groupName}, function(err, result) {
@@ -98,19 +87,16 @@ app.get('/message', function(req, res, next) {
     }
     if (result) {
       if (result.messageList === undefined) {
-        console.log("no msg list")
         res.send([])
       } else {
-        console.log("good msg list")
-        console.log(result.messageList)
         res.send(result.messageList)
       }
     }
   })
 })
 
+//saves user to db
 app.post('/signup', function(req, res, next) {
-  console.log(req.body)
   var name = req.body.name
   var groupName = req.body.group
   var username = req.body.username
@@ -158,16 +144,13 @@ app.post('/signup', function(req, res, next) {
           console.log(res);
         }
       });
-      // db.groupschema.update(
-      //   {name: groupName},
-      //   {$push: {users: u}}
-      // )
     }
   })
 
   res.redirect('/login')
 })
 
+//saves user session
 app.post('/login', function(req, res, next) {
   var username = req.body.username
   var password = req.body.password
@@ -176,14 +159,12 @@ app.post('/login', function(req, res, next) {
       username: username,
       password: password,
   })
-  console.log('user is: ' + u)
   var name = User.findOne({username: username, password: password}, function(err, result) {
     if (err) {
       next(err)
     }
     if (result) {
       req.session.user = result
-      console.log('logged in ' + req.session.user)
       res.redirect('/home')
     } else {
       res.send('invalid username/password');
@@ -191,62 +172,49 @@ app.post('/login', function(req, res, next) {
   })
 })
 
+//saves new grocery list
 app.post('/grocery', function(req, res, next) {
   req.setTimeout(250000, function() {
-    console.log('request timeout');
     res.send(408);
   });
   var groupName =  req.body.groupName; 
   var groceryList = req.body.groceryList;
-  console.log("grocery: groupname is " + groupName)
-  console.log("grocery list is " + groceryList)
 
   var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {groceryList: groceryList}}, function (err, resp) {
     if (err) {
-      console.log(err)
       next(err)
-    } else {
-      console.log(resp.groceryList);
     }
   });
   res.status(200).end()
 })
 
+//saves new chore list
 app.post('/chore', function(req, res, next) {
   req.setTimeout(250000, function() {
-    console.log('request timeout');
     res.send(408);
   });
   var groupName =  req.body.groupName; 
   var choreList = req.body.choreList;
-  console.log("chore list is " + choreList)
 
   var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {choreList: choreList}}, function (err, resp) {
     if (err) {
-      console.log(err)
       next(err)
-    } else {
-      console.log(resp.choreList);
     }
   });
   res.status(200).end()
 })
 
+//saves new message list
 app.post('/message', function(req, res, next) {
   req.setTimeout(250000, function() {
-    console.log('request timeout');
     res.send(408);
   });
   var groupName =  req.body.groupName; 
   var messageList = req.body.messageList;
-  console.log("msg list is " + messageList)
 
   var findGroup = Group.findOneAndUpdate({name: groupName}, {$set: {messageList: messageList}}, function (err, resp) {
     if (err) {
-      console.log(err)
       next(err)
-    } else {
-      console.log(resp.messageList);
     }
   });
   res.status(200).end()
