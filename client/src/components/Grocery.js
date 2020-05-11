@@ -36,29 +36,6 @@ const Grocery = props => {
     sendPost();
   }, [items])
 
-  // useEffect(() => {
-  //   if (groupName !== undefined) {
-  //     var postInfo = {
-  //       groupName: groupName,
-  //       groceryList: items,
-  //     }
-  
-  //     async function callBackendAPI() {
-  //       const requestOptions = {
-  //         method: 'POST', 
-  //         headers: { 'Content-Type': 'application/json' },
-  //         body: JSON.stringify(postInfo),
-  //       }
-  //       const response = await fetch('/grocery', requestOptions);
-  //       console.log(response)
-  //       // const body = await response.json();
-  //       // console.log(body);
-  //       return response;
-  //       }
-  //     callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  
-  //   }
-  // });
-
   function sendPost() {
     console.log('sending post')
     if (groupName !== undefined && get) {

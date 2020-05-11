@@ -236,3 +236,59 @@ select {
   display: block;
   font-size: 12px;
 }
+
+.messageList {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.message {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.bulb {
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+
+.bulb:hover {
+  cursor: pointer;
+}
+
+.messageText {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  outline: none;
+  width: 85%;
+  min-height: 2rem;
+  height: auto;
+  margin-left: 20px;
+  resize: none;
+}
+
+.messageText:focus {
+  border-bottom: 2px solid #0081CF;
+}
+
+.messageUserText {
+  display: block;
+  float: left;
+  font-size: 10px;
+  color: rgb(139, 142, 145);
+  margin-left: 2px;
+  line-height: 1rem;
+}
+
+.addMessageButton {
+  display: flex;
+  border: none;
+  background: none;
+  color: rgba(55, 53, 47, 0.6);
+  font-family: 'Inter', sans-serif;
+  margin-top: 5px;
+  padding: 0px;
+}
