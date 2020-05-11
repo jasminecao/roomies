@@ -19,7 +19,10 @@ const ChoreSchedule = props => {
         const body = await response.json();
         return body;
       }
-      callBackendAPI().then(res => {setUsers(res.groupMembers); if (res.choreList !== undefined) setChoreList(res.choreList)})
+      callBackendAPI().then(res => {
+        setUsers(res.groupMembers);
+        if (res.choreList !== undefined) setChoreList(res.choreList)
+      })
         .catch(err => console.log(err));
     }
   }, [groupName]);
@@ -44,8 +47,6 @@ const ChoreSchedule = props => {
         }
         const response = await fetch('/chore', requestOptions);
         console.log(response)
-        // const body = await response.json();
-        // console.log(body);
         return response;
         }
       callBackendAPI().then(res => console.log("response from post: " + res)).catch(err => console.log(err));  
@@ -110,8 +111,24 @@ const ChoreSchedule = props => {
           }
         }
         if (cell.innerHTML === '') {
-          let tag = `<div class="chorestyle">` + `<div class="userText">` + entry.choreUser + `</div>` + `<br/>` +
-                    `<div class="choreText">` + entry.choreName + `</div>` + `</div>`
+          let index = users.indexOf(entry.choreUser);
+          
+          let tag = `<div class="userText">` + entry.choreUser + `</div>` + `<br/>` +
+                    `<div class="choreText">` + entry.choreName + `</div>`
+          if (index === 0) {
+            tag = `<div class="chorestyle0">` + tag + `</div>`
+          } else if (index === 1) {
+            tag = `<div class="chorestyle1">` + tag + `</div>`
+          } else if (index === 2) {
+            tag = `<div class="chorestyle2">` + tag + `</div>`
+          } else if (index === 3) {
+            tag = `<div class="chorestyle3">` + tag + `</div>`
+          } else if (index === 4) {
+            tag = `<div class="chorestyle4">` + tag + `</div>`
+          } else {
+            tag = `<div class="chorestyle">` + tag + `</div>`
+          }
+
           cell.innerHTML = tag;
           return;
         }
@@ -156,7 +173,7 @@ const ChoreSchedule = props => {
               <select id="choreUser" value={choreUser} onChange={e => setChoreUser(e.target.value)} required>
                 <option value="assign chore" disabled>assign chore</option>
                 {users.map((entry, i) => (
-                  <option key={i} value={entry.name.split(" ")[0]}>{entry.name.split(" ")[0]}</option>
+                  <option key={i} value={entry}>{entry}</option>
                 ))}
               </select>
               <select id="choreDay" value={choreDay} onChange={e => setChoreDay(e.target.value)} required>

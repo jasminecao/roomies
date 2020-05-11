@@ -69,11 +69,22 @@ app.get('/chore', function(req, res, next) {
     }
     if (result) {
       if (result.choreList === undefined) {
-        res.send({groupMembers: result.users})
+        const usernameArray = [];
+        for (let i = 0; i < result.users.length; i++) {
+          console.log(result.users[i].name);
+          usernameArray.push(result.users[i].name)
+        }
+        res.send({groupMembers: usernameArray})
       } else {
         console.log("good list")
         console.log(result.choreList)
-        res.send({choreList: result.choreList, groupMembers: result.users})
+        const usernameArray = [];
+        for (let i = 0; i < result.users.length; i++) {
+          console.log(result.users[i].name);
+          usernameArray.push(result.users[i].name)
+        }
+        console.log(usernameArray)
+        res.send({choreList: result.choreList, groupMembers: usernameArray})
       }
     }
   })
