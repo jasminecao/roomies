@@ -3,12 +3,7 @@ import React, { useEffect, useState } from 'react';
 const MessageBoard = props => {
   const {username, name, groupName} = props
 
-  const[messages, setMessages] = useState([
-    {
-      username: name,
-      message: "",
-    }
-  ])
+  const[messages, setMessages] = useState([])
 
   useEffect(() => {
     if (groupName !== undefined) {
@@ -64,9 +59,6 @@ const MessageBoard = props => {
       message: "",
     });
     setMessages(newMessages);
-    setTimeout(() => {
-      document.forms[0].elements[i + 1].focus();
-    }, 0);
   }
 
   function updateItemAtIndex(e, i) {
@@ -76,12 +68,12 @@ const MessageBoard = props => {
   }
 
   function removeItemAtIndex(e, i) {
-    if (i === 0 && messages.length === 1) return;
     console.log(messages);
     setMessages(messages => messages.slice(0, i).concat(messages.slice(i + 1, messages.length)));
   }
 
   return (
+    <div className="column left">
     <div className="boxLeft">
       <h2>Notifications</h2>
       <form className="message-list">
@@ -107,6 +99,7 @@ const MessageBoard = props => {
         </ul>
       </form>
       <button className="addMessageButton" onClick={e => addItemAtIndex(e, messages.length - 1)}>+ add message🐸</button>
+    </div>
     </div>
   )
 }

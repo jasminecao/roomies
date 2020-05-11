@@ -134,9 +134,9 @@ const ChoreSchedule = props => {
   }
 
   return (
+    <div className="column right">
     <div className="boxRight">
       <h2>Chore Calendar</h2>
-
       <div className="calendar">
         <table>
           <tr>
@@ -188,6 +188,7 @@ const ChoreSchedule = props => {
           }
         </form>
       </div>
+    </div>
     </div>
   )
 }
