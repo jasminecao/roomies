@@ -7,6 +7,7 @@ const ChoreSchedule = () => {
   const [choreUser, setChoreUser] = useState('assign chore');
   const [choreDay, setChoreDay] = useState('day');
   const [choreList, setChoreList] = useState([]);
+  const [numRows, setNumRows] = useState(2);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,6 +25,59 @@ const ChoreSchedule = () => {
     }
   }
 
+  function convertDay(weekday) {
+     switch(weekday) {
+        case 'sunday':
+          return 0;
+        case 'monday':
+          return 1;
+        case 'tuesday':
+          return 2;
+        case 'wednesday':
+          return 3;
+        case 'thursday':
+          return 4;
+        case 'friday':
+          return 5;
+        case 'saturday':
+          return 6;
+        default: 
+          break;
+      }
+  }
+
+  function renderTable() {
+    return choreList.map((entry, i) => {
+      const table = document.querySelector("table");
+      if (i === 0) {
+        if (table.rows.length > 2) {
+          const rowlength = table.rows.length
+          for (let j = rowlength - 2; j >= 1; j --) {
+            console.log("deleting" + j)
+            table.deleteRow(j);
+          }
+        }
+      }
+      const length = table.rows.length;
+      for (let j = 1; j < length; j++) {
+        console.log("in for loop")
+        let cell =  table.rows[j].cells[convertDay(entry.choreDay)]
+        if (j === table.rows.length - 1) {
+          let newRow = table.insertRow();
+          for (let k = 0; k < 7; k++) {
+            newRow.insertCell(k);
+          }
+          console.log("inserted new row")
+        }
+        if (cell.innerHTML === '') {
+          cell.innerHTML = entry.choreName;
+          console.log("about to break")
+          return;
+        }
+      }
+    })
+  }
+
   return (
     <div className="boxRight">
       <h2>Chore Calendar</h2>
@@ -39,12 +93,18 @@ const ChoreSchedule = () => {
             <th>Fri</th>
             <th>Sat</th>
           </tr>
-          <tr>
-            {choreList.map((entry, i) => (
-              <td key={i}><div>{entry.choreName}</div></td>
-              ))
-            }
-          </tr>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            {renderTable()}
+          </tbody>
         </table>
         <form className="choreForm">
           <button className="addChoreButton" type="button" onClick={() => setAddChore(!addChore)}>+ add chore🧹</button>
